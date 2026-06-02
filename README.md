@@ -12,10 +12,10 @@ This repository contains AI automation workflow projects built using n8n.
 
 ## 📂 Projects
 
-| Project| Description |
+---
+| Project |  Description |
 |---|---|---|
-| 📧 01-gmail-label-classifier |Classifies Gmail messages and applies labels using AI |
-| 📝 02-email-triage-assistant |Summarizes emails, assigns priority, and drafts replies |
+| 📧 01-gmail-label-classifier |  Classifies Gmail messages and applies labels using AI |
 
 ---
 
@@ -23,6 +23,6 @@ This repository contains AI automation workflow projects built using n8n.
 
 - n8n
 - Gmail
-- OpenAI Chat Model/Google Gemini Chat Model
+- OpenAI Chat Model
 - GitHub
 
