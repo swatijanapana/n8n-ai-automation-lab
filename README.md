@@ -12,10 +12,10 @@ This repository contains AI automation workflow projects built using n8n.
 
 ## 📂 Projects
 
-| Project | Status | Description |
+| Project| Description |
 |---|---|---|
-| 📧 01-gmail-label-classifier | Completed Classifies Gmail messages and applies labels using AI |
-| 📝 02-email-triage-assistant | Planned | Summarizes emails, assigns priority, and drafts replies |
+| 📧 01-gmail-label-classifier |Classifies Gmail messages and applies labels using AI |
+| 📝 02-email-triage-assistant |Summarizes emails, assigns priority, and drafts replies |
 
 ---
 
