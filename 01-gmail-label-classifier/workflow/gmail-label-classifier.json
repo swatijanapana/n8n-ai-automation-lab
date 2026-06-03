@@ -1,0 +1,515 @@
+{
+  "name": "Gmail AI Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "maxResults": 25,
+        "filters": {
+          "labelIds": [
+            "INBOX"
+          ],
+          "readStatus": "=unread"
+        }
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -624,
+        -16
+      ],
+      "id": "76ece6f2-134a-4ebd-bc05-8486f8a6f9e6",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.snippet }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Bills & Utilities",
+              "description": "=You are an email classifier.\n\nRead the email details and choose exactly ONE label that best fits the email.\n\nUse only the labels listed below. Do not create new labels.\n\nEmails about monthly bills, internet, phone, electricity, water, gas, rent, or payment due notices,weekly  orders, receipts.\n\n\nKeywords: bill, due, payment, statement, invoice, Cox, AT&T, utility,              grocery, Walmart, pickup, delivery, receipt, food order"
+            },
+            {
+              "category": "Alerts & Newsletters",
+              "description": "=You are an email classifier.\n\nRead the email details and choose exactly ONE label that best fits the email.\n\nUse only the labels listed below. Do not create new labels.\n\nAutomated alerts, security notifications, promotional \nnewsletters, marketing emails, subscription digests. \nOnly if no direct personal action is required from the user."
+            },
+            {
+              "category": "Shipping & Orders",
+              "description": "=You are an email classifier.\n\nRead the email details and choose exactly ONE label that best fits the email.\n\nUse only the labels listed below. Do not create new labels.\n\n\nEmails about online purchases, order confirmations, retail stores, beauty products, clothes, electronics, or household items,package tracking, delivery updates, FedEx, UPS, USPS, or shipment status.\n\n\nKeywords: tracking, shipped, delivered, package, FedEx, UPS, USPS,order, purchase, confirmation, Ulta, Amazon, Target, Walmart,shipment"
+            },
+            {
+              "category": "Learning & Courses",
+              "description": "=You are an email classifier.\n\nRead the email details and choose exactly ONE label that best fits the email.\n\nUse only the labels listed below. Do not create new labels.\n\n\nEmails about courses, training, certificates, Coursera, Udemy, OpenAI Academy, or learning platforms.\n\nKeywords: course, lesson, training, certificate, Coursera, Udemy, OpenAI Academy"
+            },
+            {
+              "category": "High Priority",
+              "description": "=You are an email classifier.\n\nRead the email details and choose exactly ONE label that best fits the email.\n\n\nUse only the labels listed below. Do not create new labels.\n\nEmails from a real company or person directly addressed to \nthe user that require immediate action. Includes: account \nsuspended, failed payment, payment overdue, invoice unpaid, \nverify your identity, confirm your account, password reset, \nlegal notice, medical appointment, service interruption, \naccess blocked, account locked, delivery failed, refund \ndeclined. The email must demand a specific action from the \nuser within a deadline or face consequences."
+            },
+            {
+              "category": "Job Alerts",
+              "description": "You are an email classifier.\n\nRead the email details and choose exactly ONE label that best fits the email.\n\n\nUse only the labels listed below. Do not create new labels.\n\n\nEmails about job openings, LinkedIn jobs, Indeed, Dice, recruiter alerts, company career alerts, interview updates, or application status.\n\nKeywords: job alert, jobs, opening, hiring, recruiter, application, interview, role, career, LinkedIn, Indeed, Dice, Glassdoor, Workday"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        -448,
+        -80
+      ],
+      "id": "086e60d3-671e-474f-96b2-d10b3a468c56",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "responsesApiEnabled": false,
+        "options": {
+          "responseFormat": "text"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -448,
+        240
+      ],
+      "id": "1904a3a4-52fb-4d0c-85f8-b5107fd0582f",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "U2vtkzGB2D79cM8L",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_344755560262135629"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        144
+      ],
+      "id": "3671142a-51da-4c34-9882-5d5568352ad8",
+      "name": "High Priority ",
+      "webhookId": "404bc9d4-802b-4a09-a2ae-9d29f9338317",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_3610519817376325565"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        272
+      ],
+      "id": "1c2d37cd-e2fd-4ca9-ae92-56a8d7550755",
+      "name": "Job Alerts",
+      "webhookId": "404bc9d4-802b-4a09-a2ae-9d29f9338317",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_9027613596624591867"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        -400
+      ],
+      "id": "f87d3e1d-8b43-4bf6-b62d-04c3178cd674",
+      "name": "Bills & Utilities",
+      "webhookId": "404bc9d4-802b-4a09-a2ae-9d29f9338317",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_8944784121986322611"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        -272
+      ],
+      "id": "ac036571-dc99-42cd-a826-1d8011ca22db",
+      "name": "Alerts & Newsletters",
+      "webhookId": "404bc9d4-802b-4a09-a2ae-9d29f9338317",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_5281994989867833815"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        -128
+      ],
+      "id": "4986a175-2c9d-4e25-bb4e-140f2eb145e2",
+      "name": "Shipping & Orders",
+      "webhookId": "404bc9d4-802b-4a09-a2ae-9d29f9338317",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_1455151374848192204"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d86d7c81-b93a-4a81-acf0-694ae538811a",
+      "name": "Learning & Courses",
+      "webhookId": "404bc9d4-802b-4a09-a2ae-9d29f9338317",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=From:{{ $('Gmail Trigger').item.json.From }}\n\nSubject:{{ $('Gmail Trigger').item.json.Subject }}\n\nBody: {{ $('Gmail Trigger').item.json.snippet }}",
+        "options": {
+          "systemMessage": "=You are an email response assistant.\n\nYour job is to draft a short professional reply for a high-priority email.\n\nThe email may require action, confirmation, payment, verification, review, approval, scheduling, issue resolution, or a response.\n\nWrite the reply based on the situation.\n\nRules:\n- Keep the reply under 100 words.\n- If no name is found, use \"Hello\" instead of [Recipient's Name]\n- Be polite, clear, and professional.\n- Do not invent information.\n- Do not say the action is completed unless the email clearly says it is completed.\n- Do not include personal details that are not provided.\n- If the email asks for confirmation, say I will review and confirm.\n- If the email asks for payment, say I will review the payment details and take required action if needed.\n- If the email reports an issue, ask for next steps or additional details.\n- If there is a deadline, acknowledge it and say I will review it on priority.\n- If the email is unclear, ask for clarification.\n\nEnd the mail with \n\"Thanks!\nYour Regards,\nSri\""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        192,
+        144
+      ],
+      "id": "d07091c8-dee6-48cb-8707-2c456419086b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "responsesApiEnabled": false,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        912,
+        -112
+      ],
+      "id": "593c2f0a-bedd-41b6-a4a0-3accd9e076a6",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "U2vtkzGB2D79cM8L",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "emailType": "text",
+        "message": "={{ $json.output }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        544,
+        144
+      ],
+      "id": "730c7985-eebd-49c2-92f5-3dd745c30010",
+      "name": "Reply to a message",
+      "webhookId": "974a25ed-fa0e-47c4-8203-7369767125bd",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=From:{{ $('Gmail Trigger').item.json.From }}\nSubject:{{ $('Gmail Trigger').item.json.Subject }}\nBody:{{ $('Gmail Trigger').item.json.snippet }}",
+        "options": {
+          "systemMessage": "=ou are an email response assistant. Your job is to draft \na short professional reply for a Job alerts email.\n\nThe email may require action, confirmation, verification, review, approval, scheduling, information.\n\nRules:\n- Address the sender by their first name extracted from \n  the Subject or Body of the email\n- If no name is found, use \"Hello\" instead of [Recipient's Name]\n- Keep reply under 5 sentences\n- Sound professional \n- Sign off as: Sri\n- Never use placeholder text like [Name] or [Recipient's Name]\n- Never send an email\n- Create draft reply only if it is from recruiter"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        192,
+        272
+      ],
+      "id": "a3522e8e-e16b-4125-8073-20e4fed32c5a",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "resource": "draft",
+        "subject": "={{ $('Gmail Trigger').item.json.Subject }}",
+        "message": "={{ $json.output }}",
+        "options": {
+          "threadId": "={{ $('Gmail Trigger').item.json.threadId }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        544,
+        272
+      ],
+      "id": "65bb70f1-dff4-4c37-b6ab-751e5bac9ee3",
+      "name": "Create a draft",
+      "webhookId": "501f3837-d598-4eba-9f89-8d245eb91a5f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Bills & Utilities",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Alerts & Newsletters",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Shipping & Orders",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Learning & Courses",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "High Priority ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Job Alerts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "High Priority ": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bills & Utilities": {
+      "main": [
+        []
+      ]
+    },
+    "Alerts & Newsletters": {
+      "main": [
+        []
+      ]
+    },
+    "Job Alerts": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Reply to a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Create a draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a7ab6148-2669-4dd6-9557-3f2e87ed716f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6a6fa65fc7fd5825d433157fb1ab02df0541933c622c37c4f2c37f687e0fbcf5"
+  },
+  "id": "MaGAxxLfKxnSD2ej",
+  "tags": []
+}
