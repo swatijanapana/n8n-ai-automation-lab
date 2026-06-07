@@ -1,0 +1,525 @@
+{
+  "name": "Email Triage Assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "modelName": "models/gemma-4-31b-it",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -2208,
+        1632
+      ],
+      "id": "b6d85bce-6d36-42ed-ba37-ffec92ac37e5",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "52l7QmbgVfpAltFo",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=From:{{ $json.From }}\n\nSubject:{{ $json.Subject }}\n\nBody:{{ $json.snippet }}\n",
+        "options": {
+          "systemMessage": "=You are an email triage and classification assistant.\n\nRead the email subject and body.\n\n\n\nDo not wrap the JSON in ```json code blocks.\n\nDo not add explanation before or after the JSON.\n\nReturn only raw JSON in this exact format.\n\nDo not use markdown code fences.\n\n{\n\n  \"summary\": \"Write 1 or 2 short sentences summarizing the email.\",\n\n  \"priority\": \"High, Medium, or Low\",\n\n  \"category\": \"Bills & Utilities, Alerts & Newsletters, Shipping & Orders, Learning & Courses, or Job Alerts\",\n\n  \"reason\": \"Write one short reason.\"\n\n}\n\nRules:\n- Do not invent details.\n- Use only the email content.\n- Priority must be exactly one of: High, Medium, Low.\n- Category must be exactly one of: Bills & Utilities, Alerts & Newsletters, Shipping & Orders, Learning & Courses, Job Alerts.\n- High priority means urgent action, deadline, failed payment, account locked, identity verification, medical/legal notice, service interruption, interview update, or time-sensitive issue.\n- Medium priority means useful email that may need review, such as bills with due dates, orders needing review, learning updates, or job alerts.\n- Low priority means newsletter, promotion, shipping notification, general update, or no direct action needed.\n- Job-related emails should usually be category Job Alerts and suggested_action Create draft.\n- Shipping/order emails should usually be category Shipping & Orders and priority Low unless there is a delivery problem.\n- Bills/invoices are Medium only if due, overdue, unpaid, failed, or have a deadline. Regular invoice available notifications are Low.\n- Newsletters and promotions should be category Alerts & Newsletters and priority Low.\n\nEmail Subject:\n{{ $json.Subject }}\n\nEmail Body:\n{{ $json.snippet }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -2208,
+        1344
+      ],
+      "id": "94764604-18aa-4d81-a9a2-49cb0b990172",
+      "name": "Email Extraction Assistant",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1OT0FbPVuDfcHWKA0iiY80iI79hq3hf_P85I5ujqKIPs",
+          "mode": "list",
+          "cachedResultName": "Email Summary",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OT0FbPVuDfcHWKA0iiY80iI79hq3hf_P85I5ujqKIPs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OT0FbPVuDfcHWKA0iiY80iI79hq3hf_P85I5ujqKIPs/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "From": "={{ $json.From }}",
+            "Priority": "={{ $json.Priority }}",
+            "Category": "={{ $json.Category }}",
+            "Subject": "={{ $json.Subject }}",
+            "Sumamry": "={{ $json['  Sumamry'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "From",
+              "displayName": "From",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Priority",
+              "displayName": "Priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sumamry",
+              "displayName": "Sumamry",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1568,
+        1344
+      ],
+      "id": "f84508b9-b74d-4f91-85bf-334c4db70305",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ie3vmfmajojGrlE9",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -2576,
+        1344
+      ],
+      "id": "c978d729-f4b8-423b-b49e-4e406aaad8fd",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Extract Fields').item.json.Message_ID }}",
+        "labelIds": [
+          "Label_4649712669139717399"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1104,
+        1152
+      ],
+      "id": "d0bc25ab-9ebe-40bc-a272-747109ca411e",
+      "name": "Priority/High",
+      "webhookId": "1a9f8df2-7ebd-409d-aebb-13835d658338",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Extract Fields').item.json.Message_ID }}",
+        "labelIds": [
+          "Label_8853526313686253362"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1104,
+        1520
+      ],
+      "id": "3be02372-c37d-46bb-9e97-11ea538e0c71",
+      "name": "Priority/Low",
+      "webhookId": "5d2a0911-93c2-4c3b-ad5d-060b9d89ae61",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Extract Fields').item.json.Message_ID }}",
+        "labelIds": [
+          "Label_6319612274628050024"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1104,
+        1344
+      ],
+      "id": "3c3014bc-7343-4ca5-92d7-db190efe3021",
+      "name": "Priority/Medium",
+      "webhookId": "26690b8e-c5dc-422b-8ce1-c06683edec3c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 10,
+        "filters": {
+          "readStatus": "unread"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -2400,
+        1344
+      ],
+      "id": "27c1773a-045a-4563-9ab9-1e46f36bb661",
+      "name": "Get many messages",
+      "webhookId": "58188025-9755-4df0-bcd4-685ee89729b3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "avvYYyH01kF5IEoD",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Priority }}",
+                    "rightValue": "High",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e007d867-0f5a-4601-9fe3-b87f0999b0d9"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "High"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "0e558281-cd24-49ae-a76c-5e52759bfacf",
+                    "leftValue": "={{ $json.Priority }}",
+                    "rightValue": "Medium",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Medium"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "cf3b6281-4d6d-46a7-94e4-eab6fdb7a0ed",
+                    "leftValue": "={{ $json.Priority }}",
+                    "rightValue": "=Low",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Low"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -1376,
+        1328
+      ],
+      "id": "b803b9be-b88f-460f-839f-6196ec24d381",
+      "name": "Switch by Priority"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "36c46c0b-3571-4900-9dca-af99cc42da97",
+              "name": "=  Sumamry",
+              "value": "={{ JSON.parse($json.output.replace(/```json|```/g, '').trim()).summary }}",
+              "type": "string"
+            },
+            {
+              "id": "c7cca5f7-21b0-40d1-b052-8179916a6140",
+              "name": "Priority",
+              "value": "={{ JSON.parse($json.output.replace(/```json|```/g, '').trim()).priority }}",
+              "type": "string"
+            },
+            {
+              "id": "ccdf865a-3bfb-406f-a829-f55c79d1e034",
+              "name": "=Category",
+              "value": "={{ JSON.parse($json.output.replace(/```json|```/g, '').trim()).category }}",
+              "type": "string"
+            },
+            {
+              "id": "b79ad5da-0fbd-44b3-bab2-f41519cf08a8",
+              "name": "From",
+              "value": "={{ $('Get many messages').item.json.From }}",
+              "type": "string"
+            },
+            {
+              "id": "1e45de02-966d-42fb-b79c-c86443d178a2",
+              "name": "Subject",
+              "value": "={{ $('Get many messages').item.json.Subject }}",
+              "type": "string"
+            },
+            {
+              "id": "7763cdb7-05c5-455f-b34a-e358e1e80735",
+              "name": "Message_ID",
+              "value": "={{ $('Get many messages').item.json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1824,
+        1344
+      ],
+      "id": "017f9b9b-e76b-44c4-8e42-1a6a4ce92d86",
+      "name": "Extract Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Email Extraction Assistant",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Extraction Assistant": {
+      "main": [
+        [
+          {
+            "node": "Extract Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get many messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Priority/High": {
+      "main": [
+        []
+      ]
+    },
+    "Priority/Low": {
+      "main": [
+        []
+      ]
+    },
+    "Priority/Medium": {
+      "main": [
+        []
+      ]
+    },
+    "Get many messages": {
+      "main": [
+        [
+          {
+            "node": "Email Extraction Assistant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Switch by Priority",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch by Priority": {
+      "main": [
+        [
+          {
+            "node": "Priority/High",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Priority/Medium",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Priority/Low",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "42c19bb7-1025-4918-91b9-33db42598cd6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6a6fa65fc7fd5825d433157fb1ab02df0541933c622c37c4f2c37f687e0fbcf5"
+  },
+  "id": "MaGAxxLfKxnSD2ej",
+  "tags": []
+}
