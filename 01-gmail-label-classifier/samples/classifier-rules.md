@@ -1,4 +1,4 @@
-🧠 Gmail Classifier Rules
+## 🧠 Gmail Classifier Rules
 
 This file documents the classification rules used in the n8n Text Classifier node.
 
@@ -8,17 +8,17 @@ The classifier reads email details and chooses exactly one label from the predef
 
 You are an email classifier.
 
-Read the email details and choose exactly ONE label that best fits the email.
+Read the email subject and body, then choose exactly ONE label from the predefined Gmail labels.
 
-Use only the labels listed below. Do not create new labels.
+Do not create new labels.
+
+## Decision Rules
 
 ---
 
-## 💡 Label: Bills & Utilities
+### Bills & Utilities
 
-Emails about monthly bills, internet, phone, electricity, water, gas, rent, payment due notices, weekly orders, and receipts.
-
-### 🔑 Keywords
+### 🔑 Keywords: Bills & Utilities
 
 - bill
 - due
@@ -35,21 +35,20 @@ Emails about monthly bills, internet, phone, electricity, water, gas, rent, paym
 - receipt
 - food order
 
----
-
-## 📰 Label: Alerts & Newsletters
-
-Automated alerts, security notifications, promotional newsletters, marketing emails, and subscription digests.
-
-Use this label only if no direct personal action is required from the user.
+Choose this label when the email is mainly about bills, utilities, invoices, rent, receipts, or payment statements.
 
 ---
 
-## 📦 Label: Shipping & Orders
+### Alerts & Newsletters
 
-Emails about online purchases, order confirmations, retail stores, beauty products, clothes, electronics, household items, package tracking, delivery updates, FedEx, UPS, USPS, or shipment status.
 
-### 🔑 Keywords
+Choose this label when the email is an automated alert, newsletter, promotion, marketing email, or general subscription update with no direct action required.
+
+---
+
+### Shipping & Orders
+
+### 🔑 Keywords: Shipping & Orders
 
 - tracking
 - shipped
@@ -67,13 +66,13 @@ Emails about online purchases, order confirmations, retail stores, beauty produc
 - Walmart
 - shipment
 
+Choose this label when the email is mainly about an online order, purchase confirmation, package tracking, shipment, or delivery update.
+
 ---
 
-## 🎓 Label: Learning & Courses
+### Learning & Courses
 
-Emails about courses, training, certificates, Coursera, Udemy, OpenAI Academy, or learning platforms.
-
-### 🔑 Keywords
+### 🔑 Keywords: Learning & Courses
 
 - course
 - lesson
@@ -83,13 +82,13 @@ Emails about courses, training, certificates, Coursera, Udemy, OpenAI Academy, o
 - Udemy
 - OpenAI Academy
 
+Choose this label when the email is related to courses, training, certificates, lessons, or learning platforms.
+
 ---
 
-## 🚨 Label: High Priority
+### High Priority
 
-Emails from a real company or person directly addressed to the user that require immediate action.
-
-Includes emails about:
+### 🔑 Keywords: High Priority
 
 - Account suspended
 - Failed payment
@@ -106,15 +105,13 @@ Includes emails about:
 - Delivery failed
 - Refund declined
 
-The email must demand a specific action from the user within a deadline or include a consequence if no action is taken.
+Choose this label when the email requires urgent attention, includes a deadline, warns about a consequence, reports a failed payment, mentions account suspension, account lock, service interruption, legal notice, medical notice, or delivery failure.
 
 ---
 
-## 💼 Label: Job Alerts
+### Job Alerts
 
-Emails about job openings, LinkedIn jobs, Indeed, Dice, recruiter alerts, company career alerts, interview updates, or application status.
-
-### 🔑 Keywords
+### 🔑 Keywords: Job Alerts
 
 - job alert
 - jobs
@@ -130,3 +127,20 @@ Emails about job openings, LinkedIn jobs, Indeed, Dice, recruiter alerts, compan
 - Dice
 - Glassdoor
 - Workday
+
+
+Choose this label when the email is about job openings, recruiter messages, interview updates, application status, or career platform alerts.
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
