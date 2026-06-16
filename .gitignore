@@ -147,4 +147,6 @@ vite.config.ts.timestamp-*
 **/.DS_Store
 
 # JetBrains / PyCharm project files
-.idea/
+.idea/qa-automation/
+qa-automation/
+rag-pipeline-support-agent/
