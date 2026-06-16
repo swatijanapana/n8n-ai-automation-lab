@@ -1,7 +1,7 @@
-# 📧 Gmail Label Classifier using n8n 
+#  QA Test Case Generator using n8n 
 
 ![n8n](https://img.shields.io/badge/n8n-Workflow-orange)
-![Gmail](https://img.shields.io/badge/Gmail-Label%20Classifier-red)
+![Gmail](https://img.shields.io/badge/Email_Traige%20Assistant-red)
 ![OpenAI](https://img.shields.io/badge/OpenAI-Chat%20Model-blue)
 ![AI](https://img.shields.io/badge/AI-Text%20Classification-purple)
 
@@ -78,11 +78,13 @@ The detailed rules are documented here:
 - Gmail node
 - Text Classifier
 - OpenAI Chat Model
+- GitHub
 
-## 🔧 Setup
+## 🚀 Future Improvements
 
-Requires n8n instance with Gmail and OpenAI/Gemini credentials configured.
-
-
-
+- Add email summary generation
+- Add Google Sheets logging
+- Send reply for High Priority emails
+- Add draft reply generation for Job Alerts
+- Add more detailed keyword rules for each label
 

@@ -46,8 +46,8 @@ This project helps organize emails by priority and creates a structured record o
 ├── workflow/
 │   └── email-triage-assistant.json
 ├── screenshots/ 
-│   ├── email_summary.png 
-│   │── gmail_label.png
+│   ├── gmail_label.png
+│   │── email_summary.png 
 │   └── workflow-canvas.png
 └── samples/
     ├── priority-labels-rules.md
@@ -108,11 +108,5 @@ This project helps organize emails by priority and creates a structured record o
 Requires n8n instance with Gmail and OpenAI/Gemini credentials configured.
 
 
-## 🚀 Future Improvements
 
-* Add duplicate-processing prevention
-* Add category-based Gmail labels
-* Add automatic draft replies for job-related emails
-* Add retry handling for AI model rate limits
-* Add better error handling for Gmail label failures
 
