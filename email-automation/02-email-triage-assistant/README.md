@@ -74,7 +74,7 @@ This project helps organize emails by priority and creates a structured record o
 
 - Retrieves multiple Gmail messages
 - Uses Google Gemini Chat Model for email analysis
-- Generated AI summaries
+- Generates AI summaries
 - Extracts the fields
 - Logs email details into Google Sheets
 - Routes the emails based on the priority 
@@ -101,6 +101,11 @@ This project helps organize emails by priority and creates a structured record o
 * Google Gemini Chat Model
 * Edit Fields node
 * Switch node
+
+
+## 🔧 Setup
+
+Requires n8n instance with Gmail and OpenAI/Gemini credentials configured.
 
 
 ## 🚀 Future Improvements

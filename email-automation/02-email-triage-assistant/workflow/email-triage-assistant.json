@@ -16,7 +16,7 @@
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "52l7QmbgVfpAltFo",
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -134,7 +134,7 @@
       "name": "Append row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "ie3vmfmajojGrlE9",
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -178,7 +178,7 @@
       "webhookId": "1a9f8df2-7ebd-409d-aebb-13835d658338",
       "credentials": {
         "gmailOAuth2": {
-          "id": "avvYYyH01kF5IEoD",
+          "id": "REPLACE_WITH_GMAIL_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -202,7 +202,7 @@
       "webhookId": "5d2a0911-93c2-4c3b-ad5d-060b9d89ae61",
       "credentials": {
         "gmailOAuth2": {
-          "id": "avvYYyH01kF5IEoD",
+          "id": "REPLACE_WITH_GMAIL_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -226,7 +226,7 @@
       "webhookId": "26690b8e-c5dc-422b-8ce1-c06683edec3c",
       "credentials": {
         "gmailOAuth2": {
-          "id": "avvYYyH01kF5IEoD",
+          "id": "REPLACE_WITH_GMAIL_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -250,7 +250,7 @@
       "webhookId": "58188025-9755-4df0-bcd4-685ee89729b3",
       "credentials": {
         "gmailOAuth2": {
-          "id": "avvYYyH01kF5IEoD",
+          "id": "REPLACE_WITH_GMAIL_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }

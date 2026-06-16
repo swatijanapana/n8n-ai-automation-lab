@@ -78,11 +78,14 @@ The detailed rules are documented here:
 - Gmail node
 - Text Classifier
 - OpenAI Chat Model
-- GitHub
+
+## 🔧 Setup
+
+Requires n8n instance with Gmail and OpenAI/Gemini credentials configured.
 
 ## 🚀 Future Improvements
 
-- Add email summary generation
+
 - Add Google Sheets logging
 - Send reply for High Priority emails
 - Add draft reply generation for Job Alerts
