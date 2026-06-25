@@ -25,8 +25,6 @@ This repository contains AI automation workflow projects built using n8n.
 
 
 
-
-
 ## 🛠️ Tools
 
 - n8n
@@ -41,3 +39,12 @@ This repository contains AI automation workflow projects built using n8n.
 ## 🔐 Safety
 
 This repository does not include API keys, Gmail credentials, OAuth tokens,  Supabase credentials, or real personal/customer data.
+
+
+## 👩‍💻 Author
+Swati J – QA Analyst | AI Automation Enthusiast
+
+- 6+ years of experience in banking and financial services QA.
+- Exploring AI-powered automation using n8n, OpenAI, and Google Gemini.
+- Built workflows for email classification, triage, and RAG-based customer support agents.
+- Currently learning to apply AI and automation skills toward Gen AI QA.
