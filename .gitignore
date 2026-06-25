@@ -149,4 +149,3 @@ vite.config.ts.timestamp-*
 # JetBrains / PyCharm project files
 .idea/qa-automation/
 qa-automation/
-rag-pipeline-support-agent/
