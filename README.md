@@ -15,13 +15,13 @@ This repository contains AI automation workflow projects built using n8n.
 
 | Project | Description |
 
-|--------|---------------------------------------------------------------------------------------------|
+|--------|--------------------|
 
 | 📧 `email-automation/01-gmail-label-classifier` | Classifies Gmail messages and applies labels using AI |  
 
 | 📧 `email-automation/02-email-triage-assistant` | Summarizes emails, assigns priority, and suggests replies |
 
-| 🤖 `rag-support-agent-pipeline` | RAG-based customer support agent — retrieves context from Supabase and replies to customer emails via Gemini|
+| 🤖 `rag-support-agent-pipeline` | RAG-based customer support agent — retrieves context via Supabase and replies using Gemini|
 
 
 
