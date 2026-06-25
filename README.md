@@ -42,7 +42,7 @@ This repository does not include API keys, Gmail credentials, OAuth tokens,  Sup
 
 
 ## 👩‍💻 Author
-Swati J – QA Analyst | AI Automation Enthusiast
+Swati J – QA Analyst | Test Automation Engineer
 
 - 6+ years of experience in banking and financial services QA.
 - Exploring AI-powered automation using n8n, OpenAI, and Google Gemini.
