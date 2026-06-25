@@ -21,7 +21,7 @@ This repository contains AI automation workflow projects built using n8n.
 
 | 📧 `email-automation/02-email-triage-assistant` | Summarizes emails, assigns priority, and suggests replies |
 
-| 🤖 `rag-support-agent-pipeline` | RAG-based customer support agent — retrieves context from Supabase and replies to customer emails via Gemini |
+| 🤖 `rag-support-agent-pipeline` | RAG-based customer support agent — retrieves context from Supabase and replies to customer emails via Gemini|
 
 
 
