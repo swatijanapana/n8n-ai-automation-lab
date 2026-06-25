@@ -108,5 +108,14 @@ This project helps organize emails by priority and creates a structured record o
 Requires n8n instance with Gmail and OpenAI/Gemini credentials configured.
 
 
+## 👩‍💻 Author
+
+Swati J – QA Analyst | Test Automation Engineer
+
+* 6+ years of experience in banking and financial services.
+* Built this email triage assistant to explore AI-powered automation using n8n and Google Gemini.
+* Background in test automation, API testing, and database validation — now applying that QA mindset to testing and building AI workflows.
+
+
 
 
