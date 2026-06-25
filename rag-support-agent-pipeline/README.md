@@ -24,7 +24,9 @@ If any part of the pipeline fails, an error notification is sent via Gmail.
 
 ![RAG Pipeline Workflow](screenshots/workflow-canvas.png)
 
+
 ![Customer Support Email Reply](screenshots/customer-support-email-reply.png)
+
 
 ![Failed Workflow Email ](screenshots/failed-workflow-email.png)
 
