@@ -98,7 +98,32 @@ rag-support-agent-pipeline
 logs generated during testing. Timestamps reflect manual test 
 runs — in production these are generated automatically.
 
+## ❓Sample Questions
 
+Example questions the agent can answer using the vectorized ShopNest documents:
+
+Customer Support Policy
+* What is your return policy?
+* How long does shipping usually take?
+* Can I cancel my order after placing it?
+
+Product Catalog
+* Do you sell wireless headphones?
+* What categories of products do you offer?
+* Is the product available in different sizes/colors?
+
+Promotions & Deals
+* Are there any ongoing discounts?
+* Do you offer a discount for first-time customers?
+* How can I redeem a promo code?
+
+## 👩‍💻 Author
+
+Swati J – QA Analyst | Test Automation Engineer
+
+* 6+ years of experience in banking and financial services.
+* Built this RAG-based support agent to explore AI-powered automation using n8n, Supabase, and Google Gemini.
+* Background in test automation, API testing, and database validation — now applying that QA mindset to testing and building AI workflows.
 
 
 
